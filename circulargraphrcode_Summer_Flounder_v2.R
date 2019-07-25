@@ -1,12 +1,16 @@
+#Geret DePiper
+#Code to generate circlize Summer Flounder conceptual models
+#July 25, 2019
+
 PKG <- c("foreign","foodweb","sna","DiagrammeR","circlize","RColorBrewer","QPress")
 
 for (p in PKG) {
-  if(!require(p,character.only = TRUE)) {  
+  if(!require(p,character.only = TRUE)) {
     install.packages(p)
     require(p,character.only = TRUE)}
 }
 
-#Set your working directory to the folder containing the "For class" folder, on my computer it's: 
+#Set your working directory to the folder containing the "For class" folder, on my computer it's:
 setwd("X:/gdepiper/MAFMC EAFM/Summer_Flounder")
 
 edges <- model.dia("Summer_Flounder_July22_2019.dia")
@@ -41,7 +45,7 @@ FLUKE_Colors$Color <- FLUKE_C[1]
   FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Benefits] <- FLUKE_C[6]
   FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Science] <- FLUKE_C[7]
   FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Fishery] <- FLUKE_C[8]
-  
+
   FLUKE_Groups <- FLUKE_Colors
     FLUKE_Groups$Group <- "Drivers"
     FLUKE_Groups$Rank <- 1
@@ -78,10 +82,34 @@ FLUKE_Colors$Color <- FLUKE_C[1]
   rownames(Border_Col) <- rownames(FLUKE_edges)
   colnames(Border_Col) <- colnames(FLUKE_edges)
   #Border_Col[Grand_Banks_edges < 0] = "black"
-  
+
   Border_w <- matrix(.0001,nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
   rownames(Border_w) <- rownames(FLUKE_edges)
   colnames(Border_w) <- colnames(FLUKE_edges)
+
+##Full model figure
+pdf("X:/gdepiper/MAFMC EAFM/Summer_Flounder/FULL_Circular_v1.pdf",width = 6.69291, height=6.69291)
+ print(chordDiagram(FLUKE_edges, directional=0,
+                 grid.col = FLUKE_Colors,
+                 row.col = FLUKE_Colors,
+                 link.lty = Border_mat,
+                 link.lwd = Border_w,
+                 link.border = Border_Col,
+                 annotationTrack="grid",preAllocateTracks= list(track.height=0.5)))
+
+    print(circos.trackPlotRegion(track.index=1, panel.fun= function (x,y){
+        xlim = get.cell.meta.data("xlim")
+        ylim = get.cell.meta.data("ylim")
+        sector.name = get.cell.meta.data("sector.index")
+        circos.text(mean(xlim),ylim[1],sector.name,facing="clockwise", niceFacing=TRUE, adj =c(0,0.5), cex=.6)
+      }, bg.border=NA) )
+
+    print(legend(x=-1.1,y = 1.09,legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+                 lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+           col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=1, cex = .75, bg = NULL, box.col=NULL, bty = "n"))
+    print(title(main="Fluke System", line=-35))
+
+dev.off()
 
  #########Submodels
 Submodel_edges <- function (y) {
@@ -118,23 +146,23 @@ New_groups <- FLUKE_Groups[which(FLUKE_Groups$Focus%in%x),]
   Figure_title <- gsub("_"," ",Figure_name)
 
  pdf(paste0("X:/gdepiper/MAFMC EAFM/Summer_Flounder/",Figure_name,"_v1.pdf",sep=""),width = 6.69291, height=6.69291)
- print(chordDiagram(New_edges, directional=0, 
+ print(chordDiagram(New_edges, directional=0,
                     grid.col = New_colors,
                     row.col = New_colors,
                     link.lty = New_bordermat,
                     link.lwd = New_w,
                     link.border = "white",
                     annotationTrack="grid",preAllocateTracks= list(track.height=0.5)))
- 
+
  print(circos.trackPlotRegion(track.index=1, panel.fun= function (x,y){
    xlim = get.cell.meta.data("xlim")
    ylim = get.cell.meta.data("ylim")
    sector.name = get.cell.meta.data("sector.index")
    circos.text(mean(xlim),ylim[1],sector.name,facing="clockwise", niceFacing=TRUE, adj =c(0,0.5), cex=.6)
  }, bg.border=NA) )
- 
+
  print(legend(x=-1.1,y = 1.09,legend = New_groups$Group,
-              lty= rep(1,nrow(New_groups)), lwd=rep(5,nrow(New_groups)), 
+              lty= rep(1,nrow(New_groups)), lwd=rep(5,nrow(New_groups)),
               col =New_groups$Color, ncol=1, cex = .75, bg = NULL, box.col=NULL, bty = "n"))
  print(title(main=paste("Fluke",Figure_title,sep=" "), line=-30))
  dev.off()
