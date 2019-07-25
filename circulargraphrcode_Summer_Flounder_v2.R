@@ -24,7 +24,7 @@ FLUKE_Habitat <- c("Estuarine Habitat","Food Web Changes","Offshore Habitat","Ha
                    "Aquatic Vegetation")
 FLUKE_Biota <- c("Fluke Distributional Shift","Fluke Recruitment","Fluke SSB","Adults & Spawners","Age & Size Structure",
                  "Growth","Maturation","Natural Mortality","Sex Ratio")
-FLUKE_Species <- c("Other Species Ditributional Shifts","Protected Species")
+FLUKE_Species <- c("Other Species Distributional Shifts","Protected Species")
 FLUKE_Management <- c("Allocation","Communication","Enforcement","Management Control","Other Regulations",
                       "Permit Access","Regulatory Complexity","Risk Buffering")
 FLUKE_Benefits <- c("Commercial Profits","Consumer Surplus","Recreational Value","Seafood","Recreational Profits")
@@ -171,12 +171,12 @@ New_groups <- FLUKE_Groups[which(FLUKE_Groups$Focus%in%x),]
 #1. Risk Factors
 Risk_Factors <- c('Allocation','Commercial Profits','Discards','Fishery Resilience','Fleet Diversity','Management Control',
                   'Recreational Value','Regulatory Complexity','Seafood','Technical Interactions',"Fluke Distributional Shift",
-                  "Estuarine habitat", "Fluke SSB","Stock Assessment","Offshore habitat")
+                  "Estuarine Habitat", "Fluke SSB","Stock Assessment","Offshore Habitat")
 New_Figure(Risk_Factors)
 
 #2. Distributional Change
 Distributional_Change <- c("Fluke Distributional Shift","Temperature","Fluke Recruitment","Discards",
-                           'Landings',"Food Web Changes","Fluke SSB","Estuarine habitat","Offshore habitat")
+                           'Landings',"Food Web Changes","Fluke SSB","Estuarine Habitat","Offshore Habitat")
 New_Figure(Distributional_Change)
 
 #3. Estuarine Habitat
@@ -185,7 +185,7 @@ Estuarine_Habitat <- c("Estuarine Habitat","Temperature","Dissolved Oxygen","Hab
 New_Figure(Estuarine_Habitat)
 
 #4. Stock Biomass
-Stock_Biomass <- c("Fluke SSB","Estuarine Habitat","Offshore habitat","Food Web Changes","Growth","Maturation","Natural Mortality",
+Stock_Biomass <- c("Fluke SSB","Estuarine Habitat","Offshore Habitat","Food Web Changes","Growth","Maturation","Natural Mortality",
                    'Landings',"Discards","Sex Ratio","Age & Size Structure","Fluke Recruitment","Adults & Spawners","Fluke Distributional Shift")
 New_Figure(Stock_Biomass)
 
@@ -225,7 +225,7 @@ Management_Control <- c("Management Control","Stock Assessment","Enforcement","C
 New_Figure(Management_Control)
 
 #13. Recreational Value
-Recreational_Value <- c("Management Control","Recreational_Value","Fluke Distributional Shift","Allocation","Consumer Surplus",
+Recreational_Value <- c("Management Control","Recreational Value","Fluke Distributional Shift","Allocation","Consumer Surplus",
                         "Shifts in Preferences","Economic Drivers","Regulatory Complexity","Landings","Fluke SSB","Recreational Profits","Other Species Ditributional Shifts")
 New_Figure(Recreational_Value)
 
