@@ -1,6 +1,6 @@
 ---
 title: "Summer Flounder Conceptual Model"
-author: "Sarah Gaichas, Geret DePiper"
+author: "Geret DePiper, Sarah Gaichas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
@@ -154,3 +154,6 @@ chorddiag(FLUKE,
 
 ```
 
+## Documentation Table
+
+Insert here as in ECSA tables
