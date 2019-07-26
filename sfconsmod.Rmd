@@ -135,25 +135,88 @@ title(main="Fluke System", line=-35)
 
 ## Interactive Plot
 
-These are currently out of order and not getting the right colors
+Limks from a model element start wide at the base and are color coded to match the category of the element they lead to. Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects.
+
 ```{r sfint1}
 
-chorddiag(FLUKE, 
+#need to redo the order of the columns and rows for this function
+#also transpose it and no negative values
+FLUKE_Colors <- data.frame(row.names(FLUKE))
+colnames(FLUKE_Colors) <- "Focus"
+
+FLUKE_Colors$Color <- FLUKE_C[1]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Habitat] <- FLUKE_C[2]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Biota] <- FLUKE_C[3]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Species] <- FLUKE_C[4]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Management] <- FLUKE_C[5]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Benefits] <- FLUKE_C[6]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Science] <- FLUKE_C[7]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Fishery] <- FLUKE_C[8]
+
+FLUKE_edges <- cbind(FLUKE,FLUKE_Colors)
+FLUKE_Colors <- FLUKE_Colors[order(FLUKE_Colors$Color,FLUKE_Colors$Focus),]
+FLUKE_Colors <- matrix(FLUKE_Colors$Color,dimnames=list(FLUKE_Colors$Focus,"Color"))
+FLUKE_edges <-  FLUKE_edges[order( FLUKE_edges$Color,FLUKE_edges$Focus),]
+
+FLUKE_edges$Color <- NULL
+FLUKE_edges$Focus <- NULL
+
+rn <- row.names(FLUKE_edges)
+FLUKE_edges2 <- FLUKE_edges[rn]
+
+FLUKE_edges <- data.matrix(FLUKE_edges)
+FLUKE_edges2 <- data.matrix(FLUKE_edges2)
+FLUKE_edges2 <- t(FLUKE_edges2)
+FLUKE_edges2 <- abs(FLUKE_edges2)
+
+chorddiag(FLUKE_edges2, 
           type = "directional",
           width = 900,
           height = 900,
-          margin=150,
+          margin = 120,
           groupColors = FLUKE_Colors,
-          #groupedgeColor = FLUKE_Colors,
-          #         link.lty = Border_mat,
-          #        link.lwd = Border_w,
-          #chordedgeColor = Border_Col,
-          #         annotationTrack="grid",preAllocateTracks= list(track.height=0.5)
-          showTicks = F, groupnameFontsize = 12, groupnamePadding = 20
+          groupedgeColor = FLUKE_Colors,
+          chordedgeColor = FLUKE_Colors,
+          groupPadding = 1, groupThickness = 0.1,
+          showTicks = F, groupnameFontsize = 12, groupnamePadding = 10
           )
 
 ```
 
-## Documentation Table
+## Documentation Tables and Submodels
 
-Insert here as in ECSA tables
+I will add the documentation tables and a submodel image to each tab below
+
+### Physical Environment {.tabset .tabset-fade}
+
+#### Distribution Change
+
+#### Estuarine Habitat
+
+#### Fluke SSB (Stock Biomass)
+
+#### Stock Assessment
+
+#### Offshore Habitat
+
+### Human Dimensions {.tabset .tabset-fade}
+
+#### Allocation
+
+#### Commercial Profits
+
+#### Discards
+
+#### Fishery Resilience (Shoreside Support)
+
+#### Fleet Diverisity
+
+#### Management Control
+
+#### Recreational Value
+
+#### Regulatory Complexity
+
+#### Seafood Production
+
+#### Technical Interactions
