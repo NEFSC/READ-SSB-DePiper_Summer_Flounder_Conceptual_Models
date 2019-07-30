@@ -1,6 +1,6 @@
 ---
-title: "Summer Flounder Conceptual Model"
-author: "Geret DePiper, Sarah Gaichas"
+title: "Summer Flounder Conceptual Model: All Links"
+author: "Geret DePiper, Sarah Gaichas, Brandon Muffley"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 PKG <- c(#"foreign","foodweb","sna",
          "DiagrammeR","circlize","RColorBrewer","QPress",
-         "chorddiag")
+         "chorddiag", "kableExtra", "googledrive", "readxl")
 
 for (p in PKG) {
   if(!require(p,character.only = TRUE)) {
@@ -24,6 +24,33 @@ for (p in PKG) {
 
 #install chorddiag
 #devtools::install_github("mattflor/chorddiag")
+
+#install googlesheets4
+#devtools::install_github("tidyverse/googlesheets4")
+
+```
+
+## Background
+
+The Mid-Atlantic Fishery Management Council's Ecosystem Approach to Fisheries Management (EAFM) uses ecosystem indicators within a risk assessment framework to identify high-priority issues for further development of potential management actions, as described [here](http://www.mafmc.org/eafm).
+
+>Development of conceptual models to address management questions regarding the highest priority ecosystem factors is the second step in the Council’s EAFM Guidance Document framework. These models are built to ensure that key relationships throughout the system are accounted for. Utilizing the results of the risk assessment, the Council agreed to begin piloting the development of a summer flounder conceptual model that will consider the high priority risk factors affecting summer flounder and its fisheries.
+
+This page provides interactive views of the full draft conceptual model for summer flounder developed for the Mid-Atlantic Fishery Management Council by a working group:
+
+```{r grouptab}
+# table with group membership
+
+name <- c("Greg Ardini", "Mark Terceiro", "Michael Wilberg",  "Douglas Lipton",  "Kiley Dancy", "Jessica Coakley","Kirby Rootes-Murdy", "Jason McNamee",  "Jeff Brust", "Danielle Palmer",  "Emily Gilbert",  "Robert O'Reilly", "G. Warren Elliott", "Charles Perretti", "Geret DePiper", "Sarah Gaichas", "Brandon Muffley")
+
+affiliation <-c("NEFSC", "NEFSC", "UMD", "NMFS", "MAFMC", "MAFMC", "ASMFC", "RI DEM", "NJ DEP", "GARFO", "GARFO", "EOP & VMRC", "EOP Chair", "NEFSC", "NEFSC", "NEFSC", "MAFMC")
+  
+subgroup <- c("Human Dimensions", "Physical Environment", "Physical Environment", "Human Dimensions", "Human Dimensions", "Physical Environment", "Human Dimensions", "Physical Environment", "Physical Environment","Human Dimensions","Human Dimensions","Human Dimensions","Human Dimensions","Physical Environment", "Both","Both","Both")
+
+wg <- data.frame(Name=name, Affiliation=affiliation, Subgroup=subgroup)
+
+knitr::kable(wg, caption = "Summer Flounder Conceptual Model Working Group 2019") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 ```
 
@@ -105,7 +132,7 @@ rownames(Border_w) <- rownames(FLUKE_edges)
 colnames(Border_w) <- colnames(FLUKE_edges)
 
 ```
-
+<!--
 ## Static Plot
 
 ```{r sfstatic}
@@ -132,7 +159,7 @@ title(main="Fluke System", line=-35)
 
 
 ```
-
+-->
 ## Interactive Plot
 
 Limks from a model element start wide at the base and are color coded to match the category of the element they lead to. Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects.
@@ -183,40 +210,106 @@ chorddiag(FLUKE_edges2,
 
 ```
 
-## Documentation Tables and Submodels
+## Documentation Tables
 
-I will add the documentation tables and a submodel image to each tab below
+Each link in the conceptual model corresponds to an entry in the documentation tables below. Click on the category name to see the full documentation assembled by the working group.
+
+```{r googledr, message=FALSE, eval=FALSE}
+# take from google drive to automatically update any changes
+drive_download("Conceptual Model Elements_Detailed Info Table", path="documentation.xlsx", overwrite = TRUE)
+
+```
 
 ### Physical Environment {.tabset .tabset-fade}
 
 #### Distribution Change
+```{r distchange}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A3:E13')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Estuarine Habitat
+```{r esthab}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A17:E28')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Fluke SSB (Stock Biomass)
+```{r SSB}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A32:E44')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Stock Assessment
+```{r stockassess}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A48:E52')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Offshore Habitat
+```{r offhab}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E64')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 ### Human Dimensions {.tabset .tabset-fade}
 
 #### Allocation
+```{r alloc}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A3:E8')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Commercial Profits
+```{r commprofit}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A12:E24')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Discards
+```{r discards}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A28:E34')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Fishery Resilience (Shoreside Support)
+```{r resilience}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A38:E43')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
-#### Fleet Diverisity
+#### Fleet Diversity
+```{r fldiversity}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A47:E52')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Management Control
+```{r control}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A56:E864')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Recreational Value
+```{r recval}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A68:E79')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Regulatory Complexity
+```{r regcomplex}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A83:E89')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Seafood Production
+```{r seafood}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A93:E100')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 #### Technical Interactions
+```{r techint}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A104:E108')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
