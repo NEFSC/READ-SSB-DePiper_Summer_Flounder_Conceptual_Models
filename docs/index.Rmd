@@ -11,4 +11,4 @@ output: html_document
 
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_shiny.html" target="_blank">Embed shiny app to choose groups, probably too small, 31 July 2019</a>
 
-[The standalone shiny app is here for better viewing](https://sgaichas.shinyapps.io/buildconsmod/)
+<a href="https://sgaichas.shinyapps.io/buildconsmod/" target="_blank">The standalone shiny app is here for better viewing, 31 July 2019</a>
