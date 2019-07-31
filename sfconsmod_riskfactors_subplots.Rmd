@@ -1,0 +1,510 @@
+---
+title: "Summer Flounder Conceptual Model and Submodels"
+author: "Geret DePiper, Sarah Gaichas, Brandon Muffley"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+PKG <- c(#"foreign","foodweb","sna",
+         "DiagrammeR","circlize","RColorBrewer","QPress",
+         "chorddiag", "kableExtra", "googledrive", "readxl")
+
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+
+#install QPress
+#install.packages(c("tcltk2", "XML", "devtools"))
+#devtools::install_github("SWotherspoon/QPress", build_vignettes = TRUE)
+
+#install chorddiag
+#devtools::install_github("mattflor/chorddiag")
+
+#install googlesheets4
+#devtools::install_github("tidyverse/googlesheets4")
+
+```
+
+## Background
+
+The Mid-Atlantic Fishery Management Council's Ecosystem Approach to Fisheries Management (EAFM) uses ecosystem indicators within a risk assessment framework to identify high-priority issues for further development of potential management actions, as described [here](http://www.mafmc.org/eafm).
+
+>Development of conceptual models to address management questions regarding the highest priority ecosystem factors is the second step in the Council’s EAFM Guidance Document framework. These models are built to ensure that key relationships throughout the system are accounted for. Utilizing the results of the risk assessment, the Council agreed to begin piloting the development of a summer flounder conceptual model that will consider the high priority risk factors affecting summer flounder and its fisheries.
+
+This page provides interactive views of the risk factors mapped in the draft conceptual model for summer flounder developed for the Mid-Atlantic Fishery Management Council by a working group:
+
+```{r grouptab}
+# table with group membership
+
+name <- c("Greg Ardini", "Mark Terceiro", "Michael Wilberg",  "Douglas Lipton",  "Kiley Dancy", "Jessica Coakley","Kirby Rootes-Murdy", "Jason McNamee",  "Jeff Brust", "Danielle Palmer",  "Emily Gilbert",  "Robert O'Reilly", "G. Warren Elliott", "Charles Perretti", "Geret DePiper", "Sarah Gaichas", "Brandon Muffley")
+
+affiliation <-c("NEFSC", "NEFSC", "UMD", "NMFS", "MAFMC", "MAFMC", "ASMFC", "RI DEM", "NJ DEP", "GARFO", "GARFO", "EOP & VMRC", "EOP Chair", "NEFSC", "NEFSC", "NEFSC", "MAFMC")
+  
+subgroup <- c("Human Dimensions", "Physical Environment", "Physical Environment", "Human Dimensions", "Human Dimensions", "Physical Environment", "Human Dimensions", "Physical Environment", "Physical Environment","Human Dimensions","Human Dimensions","Human Dimensions","Human Dimensions","Physical Environment", "Both","Both","Both")
+
+wg <- data.frame(Name=name, Affiliation=affiliation, Subgroup=subgroup)
+
+knitr::kable(wg, caption = "Summer Flounder Conceptual Model Working Group 2019") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+
+```
+
+
+```{r sfmod setup, message=FALSE}
+#assumes this is a project and .dia file is in local directory
+edges <- model.dia("Summer_Flounder_July22_2019.dia")
+
+## Examine unweighted adjacency matrix
+FLUKE <- adjacency.matrix(edges, labels=TRUE)
+
+FLUKE_Drivers <- c("Economic Drivers","Temperature","Shifts in Preferences","Community Vulnerability","Freshwater Influx","Nutrient Influx","Ocean Acidification",
+                   "Ocean Features","Oceanographic Transport","Dissolved Oxygen","Water Diversion")
+FLUKE_Habitat <- c("Estuarine Habitat","Food Web Changes","Offshore Habitat","Habitat Alteration","Habitat Disturbance","Loose Inert Substrate","Salinity","Water Clarity",
+                   "Aquatic Vegetation")
+FLUKE_Biota <- c("Fluke Distributional Shift","Fluke Recruitment","Fluke SSB","Adults & Spawners","Age & Size Structure",
+                 "Growth","Maturation","Natural Mortality","Sex Ratio")
+FLUKE_Species <- c("Other Species Distributional Shifts","Protected Species")
+FLUKE_Management <- c("Allocation","Communication","Enforcement","Management Control","Other Regulations",
+                      "Permit Access","Regulatory Complexity","Risk Buffering")
+FLUKE_Benefits <- c("Commercial Profits","Consumer Surplus","Recreational Value","Seafood","Recreational Profits")
+FLUKE_Science <- c("Assessment Process","Data Quality","Predictability of Recreational Fishing","Stock Assessment")
+FLUKE_Fishery <- c("Compliance","Discards","Fishery Distributional Shift","Fishery Resilience",
+                   "Fleet Diversity","Landings","Perceived Inequity","Technical Interactions")
+
+FLUKE_C <- brewer.pal(8,"Dark2")
+
+FLUKE_Colors <- data.frame(row.names(FLUKE))
+colnames(FLUKE_Colors) <- "Focus"
+
+FLUKE_Colors$Color <- FLUKE_C[1]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Habitat] <- FLUKE_C[2]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Biota] <- FLUKE_C[3]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Species] <- FLUKE_C[4]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Management] <- FLUKE_C[5]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Benefits] <- FLUKE_C[6]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Science] <- FLUKE_C[7]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Fishery] <- FLUKE_C[8]
+
+FLUKE_Groups <- FLUKE_Colors
+FLUKE_Groups$Group <- "Drivers"
+FLUKE_Groups$Rank <- 1
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Habitat] <- "Habitat"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Habitat] <- 2
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Biota] <- "Fluke Dynamics"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Biota] <- 3
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Species] <- "Other Biota"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Species] <- 4
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Management] <- "Management"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Management] <- 5
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Benefits] <- "Benefits"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Benefits] <- 6
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Science] <- "Science"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Science] <- 7
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Fishery] <- "Fishing Fleets"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Fishery] <- 8
+
+FLUKE_edges <- cbind(FLUKE,FLUKE_Colors)
+FLUKE_Colors <- FLUKE_Colors[order(FLUKE_Colors$Color,FLUKE_Colors$Focus),]
+FLUKE_Colors <- matrix(FLUKE_Colors$Color,dimnames=list(FLUKE_Colors$Focus,"Color"))
+FLUKE_edges <-  FLUKE_edges[order( FLUKE_edges$Color,FLUKE_edges$Focus),]
+
+FLUKE_edges$Color <- NULL
+FLUKE_edges$Focus <- NULL
+
+
+FLUKE_edges <- data.matrix(FLUKE_edges)
+Border_mat <- matrix(1,nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
+rownames(Border_mat) <- rownames(FLUKE_edges)
+colnames(Border_mat) <- colnames(FLUKE_edges)
+#Border_mat[Grand_Banks_edges < 0] = 2
+Border_Col <- matrix("white",nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
+rownames(Border_Col) <- rownames(FLUKE_edges)
+colnames(Border_Col) <- colnames(FLUKE_edges)
+#Border_Col[Grand_Banks_edges < 0] = "black"
+
+Border_w <- matrix(.0001,nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
+rownames(Border_w) <- rownames(FLUKE_edges)
+colnames(Border_w) <- colnames(FLUKE_edges)
+
+```
+<!--
+## Static Plot
+
+```{r sfstatic}
+#full conceptual model in circlize package
+chordDiagram(FLUKE_edges, directional=0,
+                   grid.col = FLUKE_Colors,
+                   row.col = FLUKE_Colors,
+                   link.lty = Border_mat,
+                   link.lwd = Border_w,
+                   link.border = Border_Col,
+                   annotationTrack="grid",preAllocateTracks= list(track.height=0.5))
+
+circos.trackPlotRegion(track.index=1, panel.fun= function (x,y){
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+  circos.text(mean(xlim),ylim[1],sector.name,facing="clockwise", niceFacing=TRUE, adj =c(0,0.5), cex=.6)
+}, bg.border=NA) 
+
+legend(x=-1.1,y = 1.09,legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=1, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+title(main="Fluke System", line=-35)
+
+
+```
+-->
+## Interactive Plots
+
+Links from a model element start wide at the base and are color coded to match the category of the element they lead to. Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects.
+
+```{r sfintsetup}
+
+#need to redo the order of the columns and rows for this function
+#also transpose it and no negative values
+FLUKE_Colors <- data.frame(row.names(FLUKE))
+colnames(FLUKE_Colors) <- "Focus"
+
+FLUKE_Colors$Color <- FLUKE_C[1]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Habitat] <- FLUKE_C[2]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Biota] <- FLUKE_C[3]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Species] <- FLUKE_C[4]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Management] <- FLUKE_C[5]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Benefits] <- FLUKE_C[6]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Science] <- FLUKE_C[7]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Fishery] <- FLUKE_C[8]
+
+FLUKE_edges <- cbind(FLUKE,FLUKE_Colors)
+FLUKE_Colors <- FLUKE_Colors[order(FLUKE_Colors$Color,FLUKE_Colors$Focus),]
+FLUKE_Colors <- matrix(FLUKE_Colors$Color,dimnames=list(FLUKE_Colors$Focus,"Color"))
+FLUKE_edges <-  FLUKE_edges[order( FLUKE_edges$Color,FLUKE_edges$Focus),]
+
+FLUKE_edges$Color <- NULL
+FLUKE_edges$Focus <- NULL
+
+rn <- row.names(FLUKE_edges)
+FLUKE_edges2 <- FLUKE_edges[rn]
+
+FLUKE_edges <- data.matrix(FLUKE_edges)
+FLUKE_edges2 <- data.matrix(FLUKE_edges2)
+FLUKE_edges2 <- t(FLUKE_edges2)
+FLUKE_edges2 <- abs(FLUKE_edges2)
+
+ #########Submodels functions
+Submodel_edges <- function (y) {
+  New_edges <- FLUKE_edges2[,colnames(FLUKE_edges2)%in%y]
+  New_edges <- New_edges[rownames(New_edges)%in%y,]
+    return(New_edges)
+}
+
+Submodel_color <- function (y) {
+  New_colors <-  as.vector(FLUKE_Colors[rownames(FLUKE_Colors)%in%y,])
+  return(New_colors)
+}
+
+New_Figure <- function (x) {
+
+New_edges <- Submodel_edges(x)
+New_colors <- Submodel_color(x)
+New_groups <- FLUKE_Groups[which(FLUKE_Groups$Focus%in%x),]
+  New_groups <- unique(New_groups[,2:4])
+  New_groups <- New_groups[order(New_groups$Rank),]
+  New_groups <- New_groups[,1:2]
+  Figure_name <- deparse(substitute(x))
+  Figure_title <- gsub("_"," ",Figure_name)
+
+chorddiag(New_edges, 
+          type = "directional",
+          width = 900,
+          height = 900,
+          margin = 120,
+          groupColors = New_colors,
+          groupedgeColor = New_colors,
+          chordedgeColor = New_colors,
+          groupPadding = 1, groupThickness = 0.1,
+          showTicks = F, groupnameFontsize = 12, groupnamePadding = 10
+          )
+}
+```
+
+### Full model and submodels for risk elements {.tabset .tabset-fade}
+
+The plots below visualize conceptual model links for subsets of model components, including all links to and from individual risk elements. Click on tab corresponding to the portion of the conceptual model you want to see.
+
+#### Full Model
+```{r sfint-full}
+
+New_Figure(colnames(FLUKE_edges2))
+
+```
+
+```{r define-groupings}
+
+# #1. Risk Factors
+Risk_Factors <- c('Allocation','Commercial Profits','Discards','Fishery Resilience','Fleet Diversity','Management Control',
+                   'Recreational Value','Regulatory Complexity','Seafood','Technical Interactions',"Fluke Distributional Shift",
+                   "Estuarine Habitat", "Fluke SSB","Stock Assessment","Offshore Habitat")
+#New_Figure(Risk_Factors)
+
+#2. Distributional Change
+Distributional_Change <- c("Fluke Distributional Shift","Temperature","Fluke Recruitment","Discards",
+                           'Landings',"Food Web Changes","Fluke SSB","Estuarine Habitat","Offshore Habitat")
+#New_Figure(Distributional_Change)
+
+#3. Estuarine Habitat
+Estuarine_Habitat <- c("Estuarine Habitat","Temperature","Dissolved Oxygen","Habitat Alteration","Food Web Changes","Salinity","Freshwater Influx","Loose Inert Substrate",
+                       "Water Clarity","Aquatic Vegetation","Nutrient Influx","Water Diversion")
+#New_Figure(Estuarine_Habitat)
+
+#4. Stock Biomass
+Stock_Biomass <- c("Fluke SSB","Estuarine Habitat","Offshore Habitat","Food Web Changes","Growth","Maturation","Natural Mortality",
+                   'Landings',"Discards","Sex Ratio","Age & Size Structure","Fluke Recruitment","Adults & Spawners","Fluke Distributional Shift")
+#New_Figure(Stock_Biomass)
+
+#5. Stock Assessment
+Stock_Assessment <- c("Stock Assessment","Assessment Process","Data Quality","Risk Buffering")
+#New_Figure(Stock_Assessment)
+
+#6. Offshore Habitat
+Offshore_Habitat <- c("Offshore Habitat","Temperature","Dissolved Oxygen","Salinity","Ocean Acidification","Ocean Features","Food Web Changes",
+                      "Habitat Alteration","Habitat Disturbance")
+#New_Figure(Offshore_Habitat)
+
+#7. Allocation
+Allocation <- c("Allocation","Fluke Distributional Shift","Fishery Distributional Shift","Data Quality")
+#New_Figure(Allocation)
+
+#8. Commercial Profits
+Commercial_Profits <- c("Commercial Profits","Compliance",'Fishery Resilience',"Fluke Distributional Shift","Landings","Allocation","Fluke SSB",
+                "Management Control","Regulatory Complexity","Economic Drivers","Technical Interactions")
+#New_Figure(Commercial_Profits)
+
+#9. Discards
+Discards <- c("Discards","Fluke Distributional Shift","Allocation","Management Control","Fluke SSB","Fluke Recruitment","Technical Interactions")
+#New_Figure(Discards)
+
+#10. Fishery Resilience
+Fishery_Resilience <- c("Fishery Resilience","Allocation",'Landings',"Permit Access","Fluke Distributional Shift")
+#New_Figure(Fishery_Resilience)
+
+#11. Fleet Diversity
+Fleet_Diversity <- c("Fleet Diversity","Fishery Resilience","Fluke Distributional Shift","Allocation","Permit Access")
+#New_Figure(Fleet_Diversity)
+
+#12. Management Control
+Management_Control <- c("Management Control","Stock Assessment","Enforcement","Compliance","Risk Buffering","Data Quality",
+                        "Predictability of Recreational Fishing","Technical Interactions")
+#New_Figure(Management_Control)
+
+#13. Recreational Value
+Recreational_Value <- c("Management Control","Recreational Value","Fluke Distributional Shift","Allocation","Consumer Surplus",
+                        "Shifts in Preferences","Economic Drivers","Regulatory Complexity","Landings","Fluke SSB","Recreational Profits","Other Species Ditributional Shifts")
+#New_Figure(Recreational_Value)
+
+#14. Regulatory Complexity
+Regulatory_Complexity <- c("Regulatory Complexity","Perceived Inequity","Allocation","Communication","Data Quality","Management Control")
+#New_Figure(Regulatory_Complexity)
+
+#15. Seafood Production
+Seafood_Production <- c("Seafood","Discards","Consumer Surplus","Landings","Economic Drivers","Fishery Resilience")
+#New_Figure(Seafood_Production)
+
+#16. Technical Interactions
+Technical_Interactions <- c("Technical Interactions","Protected Species","Fluke Distributional Shift",
+                            "Other Species Ditributional Shifts","Communication","Regulatory Complexity")
+#New_Figure(Technical_Interactions)
+
+
+
+```
+
+#### Risk Elements Only
+```{r sfint-risk}
+New_Figure(Risk_Factors)
+```
+
+#### Distributional Change
+```{r sfint-dist}
+New_Figure(Distributional_Change)
+```
+
+#### Estuarine Habitat
+```{r sfint-est}
+New_Figure(Estuarine_Habitat)
+```
+
+#### Stock Biomass
+```{r sfint-sb}
+New_Figure(Stock_Biomass)
+```
+
+#### Stock Assessment
+```{r sfint-sa}
+New_Figure(Stock_Assessment)
+```
+
+#### Offshore Habitat
+```{r sfint-off}
+New_Figure(Offshore_Habitat)
+```
+
+#### Allocation
+```{r sfint-al}
+New_Figure(Allocation)
+```
+
+#### Commercial Profits
+```{r sfint-cp}
+New_Figure(Commercial_Profits)
+```
+
+#### Discards
+```{r sfint-disc}
+New_Figure(Discards)
+```
+
+#### Fishery Resilience
+```{r sfint-fr}
+New_Figure(Fishery_Resilience)
+```
+
+#### Fleet Diversity
+```{r sfint-fd}
+New_Figure(Fleet_Diversity)
+```
+
+#### Management Control
+```{r sfint-mc}
+New_Figure(Management_Control)
+```
+
+#### Recreational Value
+```{r sfint-rv}
+New_Figure(Recreational_Value)
+```
+
+#### Regulatory Complexity
+```{r sfint-rc}
+New_Figure(Regulatory_Complexity)
+```
+
+#### Seafood Production
+```{r sfint-sp}
+New_Figure(Seafood_Production)
+```
+
+#### Technical Interactions
+```{r sfint-ti}
+New_Figure(Technical_Interactions)
+```
+
+
+## Documentation Tables
+
+Each link in the conceptual model corresponds to an entry in the documentation tables below. Click on the category name to see the full documentation assembled by the working group.
+
+```{r googledr, message=FALSE, eval=FALSE}
+# take from google drive to automatically update any changes
+drive_download("Conceptual Model Elements_Detailed Info Table", path="documentation.xlsx", overwrite = TRUE)
+
+```
+
+### Physical Environment {.tabset .tabset-fade}
+
+#### Distribution Change
+```{r distchange}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A3:E13')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Estuarine Habitat
+```{r esthab}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A17:E28')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Fluke SSB (Stock Biomass)
+```{r SSB}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A32:E44')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Stock Assessment
+```{r stockassess}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A48:E52')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Offshore Habitat
+```{r offhab}
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E64')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+### Human Dimensions {.tabset .tabset-fade}
+
+#### Allocation
+```{r alloc}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A3:E8')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Commercial Profits
+```{r commprofit}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A12:E24')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Discards
+```{r discards}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A28:E34')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Fishery Resilience (Shoreside Support)
+```{r resilience}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A38:E43')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Fleet Diversity
+```{r fldiversity}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A47:E52')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Management Control
+```{r control}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A56:E864')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Recreational Value
+```{r recval}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A68:E79')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Regulatory Complexity
+```{r regcomplex}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A83:E89')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Seafood Production
+```{r seafood}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A93:E100')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Technical Interactions
+```{r techint}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A104:E108')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
