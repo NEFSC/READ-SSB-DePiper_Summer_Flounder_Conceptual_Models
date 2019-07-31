@@ -162,7 +162,7 @@ title(main="Fluke System", line=-35)
 -->
 ## Interactive Plot
 
-Limks from a model element start wide at the base and are color coded to match the category of the element they lead to. Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects.
+Links from a model element start wide at the base and are color coded to match the category of the element they lead to. Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects.
 
 ```{r sfint1}
 
