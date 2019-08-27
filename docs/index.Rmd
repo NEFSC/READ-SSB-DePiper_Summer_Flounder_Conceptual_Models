@@ -11,7 +11,7 @@ output: html_document
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors.html" target="_blank">Interactive conceptual  model, risk factors only, 31 July 2019</a>
 
 
-<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, 31 July 2019</a>
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 27 August 2019</a>
 
 
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_shiny.html" target="_blank">Embed shiny app to choose groups, probably too small, 31 July 2019</a>

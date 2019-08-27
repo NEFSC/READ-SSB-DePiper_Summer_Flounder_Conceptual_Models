@@ -160,9 +160,16 @@ title(main="Fluke System", line=-35)
 
 ```
 -->
-## Interactive Plots
+## Visualizing a Conceptual Model
 
-Links from a model element start wide at the base and are color coded to match the category of the element they lead to. Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects.
+A conceptual model is simply a map of the most important relationships between things. This conceptual model maps the relationships of things ("elements") that the Council and working group have identified as important to summer flounder fisheries and management. The relationships are not quantified or ranked in this simple map; if they are included at all they were considered important by the working group. Later analyses, based on the data sets identified below, can quantify linkages. The primary objective of this model is scoping: first, to get a big picture idea of the linkages to both refine and focus a set of management questions for Council consideration, and second to determine which relationships are necessary to include in later quantitative analysis addressing specific management issues prioritized by the Council. 
+
+In this visualization, model elements identified as important by the Council (through risk assessment) and by the working group (through a range of experience and expertise) are at the perimeter of the circle. Relationships between elements are represented as links across the center of the circle to other elements on the perimeter. Links from a model element that affect another element start wide at the base and are color coded to match the category of the element they affect.
+
+Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects. Links by default show text for the two elements and the direction of the relationship (1 for relationship, 0 for no relationship--most links are one direction).
+
+For example, hovering over the element "Landings" in the full model shows that the working group identified the elements affected by landings as seafood production, recreational value, and profits (three links leading out from landings), and the elements affecting landings as Fluke SSB, distributional shifts, risk buffering, management control, discards, and fishery resilience (6 links leading into landings).
+
 
 ```{r sfintsetup}
 
@@ -230,6 +237,7 @@ chorddiag(New_edges,
           groupPadding = 1, groupThickness = 0.1,
           showTicks = F, groupnameFontsize = 12, groupnamePadding = 10
           )
+
 }
 ```
 
@@ -324,9 +332,28 @@ Technical_Interactions <- c("Technical Interactions","Protected Species","Fluke 
 
 ```
 
+```{r legend-full, fig.height=2.5}
+
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Risk Elements Only
 ```{r sfint-risk}
 New_Figure(Risk_Factors)
+```
+
+```{r legend-risk, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Distributional Change
@@ -334,9 +361,27 @@ New_Figure(Risk_Factors)
 New_Figure(Distributional_Change)
 ```
 
+```{r legend-dist, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Estuarine Habitat
 ```{r sfint-est}
 New_Figure(Estuarine_Habitat)
+```
+
+```{r legend-est, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Stock Biomass
@@ -344,9 +389,27 @@ New_Figure(Estuarine_Habitat)
 New_Figure(Stock_Biomass)
 ```
 
+```{r legend-sb, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Stock Assessment
 ```{r sfint-sa}
 New_Figure(Stock_Assessment)
+```
+
+```{r legend-sa, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Offshore Habitat
@@ -354,9 +417,27 @@ New_Figure(Stock_Assessment)
 New_Figure(Offshore_Habitat)
 ```
 
+```{r legend-off, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Allocation
 ```{r sfint-al}
 New_Figure(Allocation)
+```
+
+```{r legend-al, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Commercial Profits
@@ -364,9 +445,27 @@ New_Figure(Allocation)
 New_Figure(Commercial_Profits)
 ```
 
+```{r legend-cp, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Discards
 ```{r sfint-disc}
 New_Figure(Discards)
+```
+
+```{r legend-disc, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Fishery Resilience
@@ -374,9 +473,27 @@ New_Figure(Discards)
 New_Figure(Fishery_Resilience)
 ```
 
+```{r legend-fr, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Fleet Diversity
 ```{r sfint-fd}
 New_Figure(Fleet_Diversity)
+```
+
+```{r legend-fd, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Management Control
@@ -384,9 +501,27 @@ New_Figure(Fleet_Diversity)
 New_Figure(Management_Control)
 ```
 
+```{r legend-mc, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Recreational Value
 ```{r sfint-rv}
 New_Figure(Recreational_Value)
+```
+
+```{r legend-rv, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Regulatory Complexity
@@ -394,9 +529,27 @@ New_Figure(Recreational_Value)
 New_Figure(Regulatory_Complexity)
 ```
 
+```{r legend-rc, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
+
 #### Seafood Production
 ```{r sfint-sp}
 New_Figure(Seafood_Production)
+```
+
+```{r legend-sp, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
 ```
 
 #### Technical Interactions
@@ -404,6 +557,14 @@ New_Figure(Seafood_Production)
 New_Figure(Technical_Interactions)
 ```
 
+```{r legend-ti, fig.height=2.5}
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+
+```
 
 ## Documentation Tables
 
