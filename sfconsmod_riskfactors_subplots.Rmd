@@ -168,7 +168,7 @@ In this visualization, model elements identified as important by the Council (th
 
 Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects. Links by default show text for the two elements and the direction of the relationship (1 for relationship, 0 for no relationship--most links are one direction).
 
-For example, hovering over the element "Landings" in the full model shows that the working group identified the elements affected by landings as seafood production, recreational value, and profits (three links leading out from landings), and the elements affecting landings as Fluke SSB, distributional shifts, risk buffering, management control, discards, and fishery resilience (6 links leading into landings).
+For example, hovering over the element "Landings" in the full model shows that the working group identified the elements affected by landings as seafood, recreational value, and profits (three links leading out from landings), and the elements affecting landings as Fluke SSB, distributional shifts, risk buffering, management control, discards, and fishery resilience (6 links leading into landings).
 
 
 ```{r sfintsetup}
