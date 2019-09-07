@@ -3,15 +3,18 @@ title: "Conceptual Model Visualizations Page"
 output: html_document
 ---
 
-## Test Visualizations
+## Visualization for Ecosystem and Ocean Planning Committee, September 2019
+
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 7 September 2019</a>
+
+
+
+## Test Visualizations archive (warning: info may be out of date)
 
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod.html" target="_blank">First try at interactive full conceptual  model and documentation tables, 30 July 2019</a>
 
 
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors.html" target="_blank">Interactive conceptual  model, risk factors only, 31 July 2019</a>
-
-
-<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 27 August 2019</a>
 
 
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_shiny.html" target="_blank">Embed shiny app to choose groups, probably too small, 31 July 2019</a>
