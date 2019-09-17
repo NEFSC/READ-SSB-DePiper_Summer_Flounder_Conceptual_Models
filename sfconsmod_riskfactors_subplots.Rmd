@@ -612,7 +612,7 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", rang
 
 #### Offshore Habitat
 ```{r offhab}
-knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E64')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E63')) %>%
   column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
   kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
 
