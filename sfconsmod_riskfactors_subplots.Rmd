@@ -581,31 +581,41 @@ drive_download("Conceptual Model Elements_Detailed Info Table", path="documentat
 #### Distribution Change
 ```{r distchange}
 knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A3:E13')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Estuarine Habitat
 ```{r esthab}
 knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A17:E28')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Fluke SSB (Stock Biomass)
 ```{r SSB}
 knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A32:E44')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Stock Assessment
 ```{r stockassess}
 knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A48:E52')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Offshore Habitat
 ```{r offhab}
 knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E64')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 ### Human Dimensions {.tabset .tabset-fade}
@@ -613,59 +623,87 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", rang
 #### Allocation
 ```{r alloc}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A3:E8')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Commercial Profits
 ```{r commprofit}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A12:E24')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Discards
 ```{r discards}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A28:E34')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Fishery Resilience (Shoreside Support)
 ```{r resilience}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A38:E43')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Fleet Diversity
 ```{r fldiversity}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A47:E52')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Management Control
 ```{r control}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A56:E864')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Recreational Value
 ```{r recval}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A68:E79')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Regulatory Complexity
 ```{r regcomplex}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A83:E89')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Seafood Production
 ```{r seafood}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A93:E100')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
 
 #### Technical Interactions
 ```{r techint}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A104:E108')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
+```
+
+#### Other
+```{r othint}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A111:E113')) %>%
+  column_spec(column = c(2,4), width = "30em", include_thead=T) %>%
+  kable_styling(full_width = F, bootstrap_options = c("striped", "hover", "condensed"))
+
 ```
