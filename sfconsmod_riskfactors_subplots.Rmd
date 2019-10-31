@@ -135,7 +135,7 @@ title(main="Fluke System", line=-35)
 
 A conceptual model is simply a map of the most important relationships between things. This conceptual model maps the relationships of things ("elements") that the Council and working group have identified as important to summer flounder fisheries and management. The relationships are not quantified or ranked in this simple map; if they are included at all they were considered important by the working group. Later analyses, based on the data sets identified below, can quantify linkages. The primary objective of this model is scoping: first, to get a big picture idea of the linkages to both refine and focus a set of management questions for Council consideration, and second to determine which relationships are necessary to include in later quantitative analysis addressing specific management issues prioritized by the Council. 
 
-In this visualization, model elements identified as important by the Council (through risk assessment) and by the working group (through a range of experience and expertise) are at the perimeter of the circle. Relationships between elements are represented as links across the center of the circle to other elements on the perimeter. Links from a model element that affect another element start wide at the base and are color coded to match the category of the element they affect.
+In this visualization, model elements identified as important by the Council (through risk assessment) and by the working group (through a range of experience and expertise) are at the perimeter of the circle. Elements are defined in detail in the [last section](#defs) of this page. Relationships between elements are represented as links across the center of the circle to other elements on the perimeter. Links from a model element that affect another element start wide at the base and are color coded to match the category of the element they affect.
 
 Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects. Links by default show text for the two elements and the direction of the relationship (1 for relationship, 0 for no relationship--most links are one direction).
 
@@ -600,3 +600,13 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = '
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A126:E128')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
+
+## Definitions {#defs}
+
+Rows in the tables above include definitions. Here we list definitions for the risk elements (table headings above).
+```{r deftable}
+
+knitr::kable(read.csv("definitions.csv")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
