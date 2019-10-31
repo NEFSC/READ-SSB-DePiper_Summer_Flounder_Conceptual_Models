@@ -523,7 +523,7 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", rang
 
 #### Offshore Habitat
 ```{r offhab}
-knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E64')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A56:E63')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
@@ -561,7 +561,7 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = '
 
 #### Management Control
 ```{r control}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A56:E864')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A56:E64')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
@@ -573,18 +573,30 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = '
 
 #### Regulatory Complexity
 ```{r regcomplex}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A83:E89')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A83:E90')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Seafood Production
 ```{r seafood}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A93:E100')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A94:E101')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Technical Interactions
 ```{r techint}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A104:E108')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A105:E109')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Offshore Wind
+```{r wind}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A112:E122')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+#### Other Links
+```{r other}
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A126:E128')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
