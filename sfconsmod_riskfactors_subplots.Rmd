@@ -603,7 +603,7 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = '
 
 ## Definitions {#defs}
 
-Rows in the tables above include definitions. Here we list definitions for the risk elements (table headings above).
+Rows in the tables above include definitions. Here we list definitions for the risk elements (table headings above). The Council defined risk in terms of meeting its management objectives, which include achieving optimum yield (OY).
 ```{r deftable}
 
 knitr::kable(read.csv("definitions.csv")) %>%
