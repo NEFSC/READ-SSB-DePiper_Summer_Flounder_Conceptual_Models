@@ -1,7 +1,7 @@
 Tab,Element,Definition
-1,   Distribution Change   ,  ""    
-2,   Estuarine Habitat   ,   ""   
-3,   Fluke SSB (Stock Biomass)   ,  The risk assessment used biomass levels relative to established reference points from assessments indicate the level of risk to achieving OY. The conceptual model highlights processes contributing to changes in stock biomass.   
+1,   Distribution Change   , Species distribution change (considered the same as 'distribution shifts') can increase risks of ineffective spatial catch allocation; if catch distribution is greatly mismatched with species distribution OY may not be achieved. The conceptual model highlights factors contributing to distribution change and elements affected by distribution change.
+2,   Estuarine Habitat   ,      
+3,   Fluke SSB (Stock Biomass)   ,  The risk assessment used biomass levels relative to established reference points from assessments indicate the level of risk to achieving OY. The conceptual model highlights processes contributing to changes in stock biomass.
 4,   Stock Assessment   ,  Assessment methods and data quality shape our understanding of stock status and yield. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations.  The conceptual model highlights factors contributing to assessment uncertainty.  
 5,   Offshore Habitat   ,      
 6,   Allocation   ,      
