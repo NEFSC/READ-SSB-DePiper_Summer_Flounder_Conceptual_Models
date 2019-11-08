@@ -58,10 +58,10 @@ FLUKE_Biota <- c("Fluke Distributional Shift","Fluke Recruitment","Fluke SSB","A
 FLUKE_Species <- c("Other Species Distributional Shifts","Protected Species")
 FLUKE_Management <- c("Allocation","Communication","Enforcement","Management Control","Other Regulations",
                       "Permit Access","Regulatory Complexity","Risk Buffering")
-FLUKE_Benefits <- c("Commercial Profits","Consumer Surplus","Recreational Value","Seafood","Recreational Profits")
+FLUKE_Benefits <- c("Commercial Profits","Consumer Surplus","Recreational Value","Seafood Production","Rec. Business Profits")
 FLUKE_Science <- c("Assessment Process","Data Quality","Predictability of Recreational Fishing","Stock Assessment")
-FLUKE_Fishery <- c("Compliance","Discards","Fishery Distributional Shift","Fishery Resilience",
-                   "Fleet Diversity","Landings","Perceived Inequity","Technical Interactions")
+FLUKE_Fishery <- c("Compliance","Total Discards","Fishery Distributional Shift","Shoreside Support",
+                   "Fleet Diversity","Total Landings","Perceived Inequity","Technical Interactions")
 FLUKE_C <- brewer.pal(8,"Dark2")
 FLUKE_Colors <- data.frame(row.names(FLUKE))
 colnames(FLUKE_Colors) <- "Focus"
@@ -212,13 +212,13 @@ New_Figure(colnames(FLUKE_edges2))
 
 ```{r define-groupings}
 # #1. Risk Factors
-Risk_Factors <- c('Allocation','Commercial Profits','Discards','Fishery Resilience','Fleet Diversity','Management Control',
-                   'Recreational Value','Regulatory Complexity','Seafood','Technical Interactions',"Fluke Distributional Shift",
+Risk_Factors <- c('Allocation','Commercial Profits','Total Discards','Fishery Resilience','Fleet Diversity','Management Control',
+                   'Recreational Value','Regulatory Complexity','Seafood Production','Technical Interactions',"Fluke Distributional Shift",
                    "Estuarine Habitat", "Fluke SSB","Stock Assessment","Offshore Habitat", "Offshore Wind")
 #New_Figure(Risk_Factors)
 #2. Distributional Change
-Distributional_Change <- c("Fluke Distributional Shift","Temperature","Fluke Recruitment","Discards",
-                           'Landings',"Food Web Changes","Fluke SSB","Estuarine Habitat","Offshore Habitat")
+Distributional_Change <- c("Fluke Distributional Shift","Temperature","Fluke Recruitment","Total Discards",
+                           'Total Landings',"Food Web Changes","Fluke SSB","Estuarine Habitat","Offshore Habitat")
 #New_Figure(Distributional_Change)
 #3. Estuarine Habitat
 Estuarine_Habitat <- c("Estuarine Habitat","Temperature","Dissolved Oxygen","Habitat Alteration","Food Web Changes","Salinity","Freshwater Influx","Loose Inert Substrate",
@@ -226,7 +226,7 @@ Estuarine_Habitat <- c("Estuarine Habitat","Temperature","Dissolved Oxygen","Hab
 #New_Figure(Estuarine_Habitat)
 #4. Stock Biomass
 Stock_Biomass <- c("Fluke SSB","Estuarine Habitat","Offshore Habitat","Food Web Changes","Growth","Maturation","Natural Mortality",
-                   'Landings',"Discards","Sex Ratio","Age & Size Structure","Fluke Recruitment","Adults & Spawners","Fluke Distributional Shift", "Offshore Wind")
+                   'Total Landings',"Total Discards","Sex Ratio","Age & Size Structure","Fluke Recruitment","Adults & Spawners","Fluke Distributional Shift", "Offshore Wind")
 #New_Figure(Stock_Biomass)
 #5. Stock Assessment
 Stock_Assessment <- c("Stock Assessment","Assessment Process","Data Quality","Risk Buffering")
@@ -239,17 +239,17 @@ Offshore_Habitat <- c("Offshore Habitat","Temperature","Dissolved Oxygen","Salin
 Allocation <- c("Allocation","Fluke Distributional Shift","Fishery Distributional Shift","Data Quality", "Offshore Wind")
 #New_Figure(Allocation)
 #8. Commercial Profits
-Commercial_Profits <- c("Commercial Profits","Compliance",'Fishery Resilience',"Fluke Distributional Shift","Landings","Allocation","Fluke SSB",
+Commercial_Profits <- c("Commercial Profits","Compliance",'Shoreside Support',"Fluke Distributional Shift","Total Landings","Allocation","Fluke SSB",
                 "Management Control","Regulatory Complexity","Economic Drivers","Technical Interactions", "Offshore Wind")
 #New_Figure(Commercial_Profits)
 #9. Discards
-Discards <- c("Discards","Fluke Distributional Shift","Allocation","Management Control","Fluke SSB","Fluke Recruitment","Technical Interactions")
+Discards <- c("Total Discards","Fluke Distributional Shift","Allocation","Management Control","Fluke SSB","Fluke Recruitment","Technical Interactions")
 #New_Figure(Discards)
 #10. Fishery Resilience
-Fishery_Resilience <- c("Fishery Resilience","Allocation",'Landings',"Permit Access","Fluke Distributional Shift")
+Fishery_Resilience <- c("Shoreside Support","Allocation",'Total Landings',"Permit Access","Fluke Distributional Shift")
 #New_Figure(Fishery_Resilience)
 #11. Fleet Diversity
-Fleet_Diversity <- c("Fleet Diversity","Fishery Resilience","Fluke Distributional Shift","Allocation","Permit Access")
+Fleet_Diversity <- c("Fleet Diversity","Shoreside Support","Fluke Distributional Shift","Allocation","Permit Access")
 #New_Figure(Fleet_Diversity)
 #12. Management Control
 Management_Control <- c("Management Control","Stock Assessment","Enforcement","Compliance","Risk Buffering","Data Quality",
@@ -257,13 +257,13 @@ Management_Control <- c("Management Control","Stock Assessment","Enforcement","C
 #New_Figure(Management_Control)
 #13. Recreational Value
 Recreational_Value <- c("Management Control","Recreational Value","Fluke Distributional Shift","Allocation","Consumer Surplus",
-                        "Shifts in Preferences","Economic Drivers","Regulatory Complexity","Landings","Fluke SSB","Recreational Profits","Other Species Ditributional Shifts", "Offshore Wind")
+                        "Shifts in Preferences","Economic Drivers","Regulatory Complexity","Total Landings","Fluke SSB","Rec. Business Profits","Other Species Ditributional Shifts", "Offshore Wind")
 #New_Figure(Recreational_Value)
 #14. Regulatory Complexity
 Regulatory_Complexity <- c("Regulatory Complexity","Perceived Inequity","Allocation","Communication","Data Quality","Management Control")
 #New_Figure(Regulatory_Complexity)
 #15. Seafood Production
-Seafood_Production <- c("Seafood","Discards","Consumer Surplus","Landings","Economic Drivers","Fishery Resilience")
+Seafood_Production <- c("Seafood Production","Total Discards","Consumer Surplus","Total Landings","Economic Drivers","Shoreside Support")
 #New_Figure(Seafood_Production)
 #16. Technical Interactions
 Technical_Interactions <- c("Technical Interactions","Protected Species","Fluke Distributional Shift",
@@ -294,7 +294,7 @@ legend("topleft", #x=-1.1,y = 1.09,
              col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
 ```
 
-#### Distributional Change
+#### Fluke Distributional Shift
 ```{r sfint-dist}
 New_Figure(Distributional_Change)
 ```
@@ -398,7 +398,7 @@ legend("topleft", #x=-1.1,y = 1.09,
              col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=4, cex = .75, bg = NULL, box.col=NULL, bty = "n")
 ```
 
-#### Fishery Resilience
+#### Shoreside Support
 ```{r sfint-fr}
 New_Figure(Fishery_Resilience)
 ```
@@ -500,7 +500,7 @@ drive_download("Conceptual Model Elements_Detailed Info Table", path="documentat
 
 ### Physical Environment {.tabset .tabset-fade}
 
-#### Distribution Change
+#### Fluke Distributional Shift
 ```{r distchange}
 knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", range = 'A3:E13')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
@@ -550,7 +550,7 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = '
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
-#### Fishery Resilience (Shoreside Support)
+#### Shoreside Support
 ```{r resilience}
 knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A38:E43')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
