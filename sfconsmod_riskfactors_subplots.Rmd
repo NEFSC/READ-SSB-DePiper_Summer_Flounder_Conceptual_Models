@@ -59,7 +59,7 @@ FLUKE_Species <- c("Other Species Distributional Shifts","Protected Species")
 FLUKE_Management <- c("Allocation","Communication","Enforcement","Management Control","Other Regulations",
                       "Permit Access","Regulatory Complexity","Risk Buffering")
 FLUKE_Benefits <- c("Commercial Profits","Consumer Surplus","Recreational Value","Seafood Production","Rec. Business Profits")
-FLUKE_Science <- c("Assessment Process","Data Quality","Predictability of Recreational Fishing","Stock Assessment")
+FLUKE_Science <- c("Assessment Process","Data Quality", "Rec. Fishing Predictability","Stock Assessment")
 FLUKE_Fishery <- c("Compliance","Total Discards","Fishery Distributional Shift","Shoreside Support",
                    "Fleet Diversity","Total Landings","Perceived Inequity","Technical Interactions")
 FLUKE_C <- brewer.pal(8,"Dark2")
@@ -140,7 +140,7 @@ In this visualization, model elements identified as important by the Council (th
 
 Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects. Links by default show text for the two elements and the direction of the relationship (1 for relationship, 0 for no relationship--most links are one direction).
 
-For example, hovering over the element "Landings" in the full model shows that the working group identified the elements affected by landings as seafood, recreational value, and profits (three links leading out from landings), and the elements affecting landings as Fluke SSB, distributional shifts, risk buffering, management control, discards, and fishery resilience (6 links leading into landings).
+For example, hovering over the element "Total Landings" in the full model shows that the working group identified the elements affected by landings as Seafood Production, Recreational Value, and Commercial Profits (three links leading out from landings), and the elements affecting landings as Fluke SSB, Fluke Distributional Shift, Risk Buffering, Management Control, Total Discards, and Shoreside Support (6 links leading into Total Landings).
 
 
 ```{r sfintsetup}
@@ -253,11 +253,11 @@ Fleet_Diversity <- c("Fleet Diversity","Shoreside Support","Fluke Distributional
 #New_Figure(Fleet_Diversity)
 #12. Management Control
 Management_Control <- c("Management Control","Stock Assessment","Enforcement","Compliance","Risk Buffering","Data Quality",
-                        "Predictability of Recreational Fishing","Technical Interactions", "Offshore Wind")
+                        "Rec. Fishing Predictability","Technical Interactions", "Offshore Wind")
 #New_Figure(Management_Control)
 #13. Recreational Value
 Recreational_Value <- c("Management Control","Recreational Value","Fluke Distributional Shift","Allocation","Consumer Surplus",
-                        "Shifts in Preferences","Economic Drivers","Regulatory Complexity","Total Landings","Fluke SSB","Rec. Business Profits","Other Species Ditributional Shifts", "Offshore Wind")
+                        "Shifts in Preferences","Economic Drivers","Regulatory Complexity","Total Landings","Fluke SSB","Rec. Business Profits","Other Species Distributional Shifts", "Offshore Wind")
 #New_Figure(Recreational_Value)
 #14. Regulatory Complexity
 Regulatory_Complexity <- c("Regulatory Complexity","Perceived Inequity","Allocation","Communication","Data Quality","Management Control")
@@ -267,7 +267,7 @@ Seafood_Production <- c("Seafood Production","Total Discards","Consumer Surplus"
 #New_Figure(Seafood_Production)
 #16. Technical Interactions
 Technical_Interactions <- c("Technical Interactions","Protected Species","Fluke Distributional Shift",
-                            "Other Species Ditributional Shifts","Communication","Regulatory Complexity")
+                            "Other Species Distributional Shifts","Communication","Regulatory Complexity")
 #New_Figure(Technical_Interactions)
 #17. Offhshore Wind
 Offshore_Wind <- c("Fluke Distributional Shift")
