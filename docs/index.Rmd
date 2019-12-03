@@ -5,7 +5,9 @@ output: html_document
 
 ## Visualization for Ecosystem and Ocean Planning Committee, November 2019
 
-<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 13 November 2019</a>
+## Minor edits for Council, December 2019
+
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 3 December 2019</a>
 
 
 
