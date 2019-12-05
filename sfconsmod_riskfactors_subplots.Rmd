@@ -534,73 +534,73 @@ knitr::kable(read_excel("documentation.xlsx", sheet="Physical Environment", rang
 
 #### Allocation
 ```{r alloc}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A3:E8')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A3:E9')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Commercial Profits
 ```{r commprofit}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A12:E24')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A13:E25')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Discards
 ```{r discards}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A28:E34')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A29:E35')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Shoreside Support
 ```{r resilience}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A38:E43')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A39:E44')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Fleet Diversity
 ```{r fldiversity}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A47:E52')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A48:E53')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Management Control
 ```{r control}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A56:E64')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A57:E65')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Recreational Value
 ```{r recval}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A68:E79')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A69:E80')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Regulatory Complexity
 ```{r regcomplex}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A83:E90')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A84:E91')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Seafood Production
 ```{r seafood}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A94:E101')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A95:E102')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Technical Interactions
 ```{r techint}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A105:E109')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A106:E110')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Offshore Wind
 ```{r wind}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A112:E122')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A113:E123')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
 #### Other Links
 ```{r other}
-knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A126:E128')) %>%
+knitr::kable(read_excel("documentation.xlsx", sheet="Human Dimension", range = 'A127:E129')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
