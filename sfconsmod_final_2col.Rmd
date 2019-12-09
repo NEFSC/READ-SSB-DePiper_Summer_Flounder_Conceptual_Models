@@ -1,0 +1,225 @@
+---
+title: "Summer Flounder Conceptual Model and Questions"
+author: "Geret DePiper, Sarah Gaichas, Brandon Muffley"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+PKG <- c(#"foreign","foodweb","sna",
+         "DiagrammeR","circlize","RColorBrewer","QPress",
+         "chorddiag", "kableExtra", "googledrive", "readxl",
+         "DT")
+for (p in PKG) {
+  if(!require(p,character.only = TRUE)) {
+    install.packages(p)
+    require(p,character.only = TRUE)}
+}
+#install QPress
+#install.packages(c("tcltk2", "XML", "devtools"))
+#devtools::install_github("SWotherspoon/QPress", build_vignettes = TRUE)
+#install chorddiag
+#devtools::install_github("mattflor/chorddiag")
+#install googlesheets4
+#devtools::install_github("tidyverse/googlesheets4")
+#install bsselectR
+#devtools::install_github("walkerke/bsselectR")
+```
+
+
+```{r sfmod setup, message=FALSE}
+#assumes this is a project and .dia file is in local directory
+edges <- model.dia("Summer_Flounder_July22_2019.dia")
+## Examine unweighted adjacency matrix
+FLUKE <- adjacency.matrix(edges, labels=TRUE)
+FLUKE_Drivers <- c("Economic Drivers","Temperature","Shifts in Preferences","Community Vulnerability","Freshwater Influx","Nutrient Influx","Ocean Acidification",
+                   "Ocean Features","Oceanographic Transport","Offshore Wind","Dissolved Oxygen","Water Diversion")
+FLUKE_Habitat <- c("Estuarine Habitat","Food Web Changes","Offshore Habitat","Habitat Alteration","Habitat Disturbance","Loose Inert Substrate","Salinity","Water Clarity",
+                   "Aquatic Vegetation")
+FLUKE_Biota <- c("Fluke Distributional Shift","Fluke Recruitment","Fluke SSB","Adults & Spawners","Age & Size Structure",
+                 "Growth","Maturation","Natural Mortality","Sex Ratio")
+FLUKE_Species <- c("Other Species Distributional Shifts","Protected Species")
+FLUKE_Management <- c("Allocation","Communication","Enforcement","Management Control","Other Regulations",
+                      "Permit Access","Regulatory Complexity","Risk Buffering")
+FLUKE_Benefits <- c("Commercial Profits","Consumer Surplus","Recreational Value","Seafood Production","Rec. Business Profits")
+FLUKE_Science <- c("Assessment Process","Data Quality", "Rec. Fishing Predictability","Stock Assessment")
+FLUKE_Fishery <- c("Compliance","Total Discards","Fishery Distributional Shift","Shoreside Support",
+                   "Fleet Diversity","Total Landings","Perceived Inequity","Technical Interactions")
+FLUKE_C <- brewer.pal(8,"Dark2")
+FLUKE_Colors <- data.frame(row.names(FLUKE))
+colnames(FLUKE_Colors) <- "Focus"
+FLUKE_Colors$Color <- FLUKE_C[1]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Habitat] <- FLUKE_C[2]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Biota] <- FLUKE_C[3]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Species] <- FLUKE_C[4]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Management] <- FLUKE_C[5]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Benefits] <- FLUKE_C[6]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Science] <- FLUKE_C[7]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Fishery] <- FLUKE_C[8]
+FLUKE_Groups <- FLUKE_Colors
+FLUKE_Groups$Group <- "Drivers"
+FLUKE_Groups$Rank <- 1
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Habitat] <- "Habitat"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Habitat] <- 2
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Biota] <- "Fluke Dynamics"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Biota] <- 3
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Species] <- "Other Biota"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Species] <- 4
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Management] <- "Management"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Management] <- 5
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Benefits] <- "Benefits"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Benefits] <- 6
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Science] <- "Science"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Science] <- 7
+FLUKE_Groups$Group[FLUKE_Groups$Focus%in%FLUKE_Fishery] <- "Fishing Fleets"
+FLUKE_Groups$Rank[FLUKE_Groups$Focus%in%FLUKE_Fishery] <- 8
+FLUKE_edges <- cbind(FLUKE,FLUKE_Colors)
+FLUKE_Colors <- FLUKE_Colors[order(FLUKE_Colors$Color,FLUKE_Colors$Focus),]
+FLUKE_Colors <- matrix(FLUKE_Colors$Color,dimnames=list(FLUKE_Colors$Focus,"Color"))
+FLUKE_edges <-  FLUKE_edges[order( FLUKE_edges$Color,FLUKE_edges$Focus),]
+FLUKE_edges$Color <- NULL
+FLUKE_edges$Focus <- NULL
+FLUKE_edges <- data.matrix(FLUKE_edges)
+Border_mat <- matrix(1,nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
+rownames(Border_mat) <- rownames(FLUKE_edges)
+colnames(Border_mat) <- colnames(FLUKE_edges)
+#Border_mat[Grand_Banks_edges < 0] = 2
+Border_Col <- matrix("white",nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
+rownames(Border_Col) <- rownames(FLUKE_edges)
+colnames(Border_Col) <- colnames(FLUKE_edges)
+#Border_Col[Grand_Banks_edges < 0] = "black"
+Border_w <- matrix(.0001,nrow=nrow(FLUKE_edges),ncol=ncol(FLUKE_edges))
+rownames(Border_w) <- rownames(FLUKE_edges)
+colnames(Border_w) <- colnames(FLUKE_edges)
+```
+<!--
+## Static Plot
+```{r sfstatic}
+#full conceptual model in circlize package
+chordDiagram(FLUKE_edges, directional=0,
+                   grid.col = FLUKE_Colors,
+                   row.col = FLUKE_Colors,
+                   link.lty = Border_mat,
+                   link.lwd = Border_w,
+                   link.border = Border_Col,
+                   annotationTrack="grid",preAllocateTracks= list(track.height=0.5))
+circos.trackPlotRegion(track.index=1, panel.fun= function (x,y){
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+  circos.text(mean(xlim),ylim[1],sector.name,facing="clockwise", niceFacing=TRUE, adj =c(0,0.5), cex=.6)
+}, bg.border=NA) 
+legend(x=-1.1,y = 1.09,legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(5,5,5,5,5,5,5,5),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=1, cex = .75, bg = NULL, box.col=NULL, bty = "n")
+title(main="Fluke System", line=-35)
+```
+-->
+
+
+```{r sfintsetup}
+#need to redo the order of the columns and rows for this function
+#also transpose it and no negative values
+FLUKE_Colors <- data.frame(row.names(FLUKE))
+colnames(FLUKE_Colors) <- "Focus"
+FLUKE_Colors$Color <- FLUKE_C[1]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Habitat] <- FLUKE_C[2]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Biota] <- FLUKE_C[3]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Species] <- FLUKE_C[4]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Management] <- FLUKE_C[5]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Benefits] <- FLUKE_C[6]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Science] <- FLUKE_C[7]
+FLUKE_Colors$Color[FLUKE_Colors$Focus%in%FLUKE_Fishery] <- FLUKE_C[8]
+FLUKE_edges <- cbind(FLUKE,FLUKE_Colors)
+FLUKE_Colors <- FLUKE_Colors[order(FLUKE_Colors$Color,FLUKE_Colors$Focus),]
+FLUKE_Colors <- matrix(FLUKE_Colors$Color,dimnames=list(FLUKE_Colors$Focus,"Color"))
+FLUKE_edges <-  FLUKE_edges[order( FLUKE_edges$Color,FLUKE_edges$Focus),]
+FLUKE_edges$Color <- NULL
+FLUKE_edges$Focus <- NULL
+rn <- row.names(FLUKE_edges)
+FLUKE_edges2 <- FLUKE_edges[rn]
+FLUKE_edges <- data.matrix(FLUKE_edges)
+FLUKE_edges2 <- data.matrix(FLUKE_edges2)
+FLUKE_edges2 <- t(FLUKE_edges2)
+FLUKE_edges2 <- abs(FLUKE_edges2)
+ #########Submodels functions
+Submodel_edges <- function (y) {
+  New_edges <- FLUKE_edges2[,colnames(FLUKE_edges2)%in%y]
+  New_edges <- New_edges[rownames(New_edges)%in%y,]
+    return(New_edges)
+}
+Submodel_color <- function (y) {
+  New_colors <-  as.vector(FLUKE_Colors[rownames(FLUKE_Colors)%in%y,])
+  return(New_colors)
+}
+New_Figure <- function (x) {
+New_edges <- Submodel_edges(x)
+New_colors <- Submodel_color(x)
+New_groups <- FLUKE_Groups[which(FLUKE_Groups$Focus%in%x),]
+  New_groups <- unique(New_groups[,2:4])
+  New_groups <- New_groups[order(New_groups$Rank),]
+  New_groups <- New_groups[,1:2]
+  Figure_name <- deparse(substitute(x))
+  Figure_title <- gsub("_"," ",Figure_name)
+chorddiag(New_edges, 
+          type = "directional",
+          width = 900,
+          height = 900,
+          margin = 120,
+          groupColors = New_colors,
+          groupedgeColor = New_colors,
+          chordedgeColor = New_colors,
+          groupPadding = 1, groupThickness = 0.1,
+          showTicks = F, groupnameFontsize = 12, groupnamePadding = 10
+          )
+}
+```
+
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.column-left{
+  float: left;
+  width: 30%;
+  text-align: left;
+  font-size: 150%;
+}
+.column-right{
+  float: right;
+  width: 70%;
+  text-align: center;
+}
+
+</style>
+
+<div class="column-left">
+### Management questions
+```{r selectquestion}
+
+#from https://walkerke.github.io/2016/12/rmd-dropdowns/
+library(bsselectR)
+
+quotes <- c("How does utilizing recreational data sources at scales that may be inappropriate for the data source (e.g., MRIP data at the state/wave/mode level) affect management variability, uncertainty, and fishery performance? Evaluate the impact of that variability and uncertainty and its use in the current conservation equivalency process on recreational fishery outcomes.", 
+            "What are the mechanisms driving summer flounder distribution shift and/or population range expansion? What are the biological, management, and socioeconomic implications of these changes? Identify potential management and science strategies to help account for the impacts of these changes.", 
+            "Evaluate the biological and economic benefits of minimizing discards and converting discards into landings in the recreational sector. Identify management strategies to effectively realize these benefits..")
+
+names(quotes) <- c("1", "2", "3")
+
+bsselect(quotes, type = "text")
+```
+
+</div>
+
+<div class="column-right">
+### Full model 
+
+```{r sfint-full}
+New_Figure(colnames(FLUKE_edges2))
+```
+
+</div>

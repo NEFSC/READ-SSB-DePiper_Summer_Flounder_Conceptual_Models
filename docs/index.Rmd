@@ -7,11 +7,14 @@ output: html_document
 
 ## Minor edits for Council, December 2019
 
-<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 3 December 2019</a>
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 5 December 2019</a>
+
+## Side by side management question and full model, December 2019
+
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_final_2col.html" target="_blank">Interactive conceptual  model and management questions, 9 December 2019</a>
 
 
-
-## Test Visualizations archive (warning: info may be out of date)
+### Test Visualizations archive (warning: info may be out of date)
 
 <a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod.html" target="_blank">First try at interactive full conceptual  model and documentation tables, 30 July 2019</a>
 
