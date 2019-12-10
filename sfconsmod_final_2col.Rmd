@@ -204,13 +204,21 @@ chorddiag(New_edges,
 #from https://walkerke.github.io/2016/12/rmd-dropdowns/
 library(bsselectR)
 
+plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+legend("topleft", #x=-1.1,y = 1.09,
+       legend = c("Driver","Habitat","Fluke","Other Biota","Management","Benefits","Science","Fishing Fleets"),
+             lty= c(1,1,1,1,1,1,1,1), lwd=c(15,15,15,15,15,15,15,15),
+             col =c(FLUKE_C[1],FLUKE_C[2],FLUKE_C[3],FLUKE_C[4],FLUKE_C[5],FLUKE_C[6],FLUKE_C[7],FLUKE_C[8]), ncol=1, cex = 1.5, bg = NULL, box.col=NULL, bty = "n")
+
 quotes <- c("How does utilizing recreational data sources at scales that may be inappropriate for the data source (e.g., MRIP data at the state/wave/mode level) affect management variability, uncertainty, and fishery performance? Evaluate the impact of that variability and uncertainty and its use in the current conservation equivalency process on recreational fishery outcomes.", 
             "What are the mechanisms driving summer flounder distribution shift and/or population range expansion? What are the biological, management, and socioeconomic implications of these changes? Identify potential management and science strategies to help account for the impacts of these changes.", 
-            "Evaluate the biological and economic benefits of minimizing discards and converting discards into landings in the recreational sector. Identify management strategies to effectively realize these benefits..")
+            "Evaluate the biological and economic benefits of minimizing discards and converting discards into landings in the recreational sector. Identify management strategies to effectively realize these benefits.")
 
 names(quotes) <- c("1", "2", "3")
 
 bsselect(quotes, type = "text")
+
+
 ```
 
 </div>
