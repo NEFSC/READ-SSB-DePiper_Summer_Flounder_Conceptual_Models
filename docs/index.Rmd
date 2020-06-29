@@ -5,13 +5,15 @@ output: html_document
 
 ## Visualization for Ecosystem and Ocean Planning Committee, November 2019
 
+Updated June 29, 2020 to correct a missig link to "Other species distributional shifts"
+
 ## Minor edits for Council, December 2019
 
-<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, revised 5 December 2019</a>
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html" target="_blank">Interactive conceptual  model and all submodels, presented 5 December 2019; revised 29 June 2020</a>
 
 ## Side by side management question and full model, December 2019
 
-<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_final_2col.html" target="_blank">Interactive conceptual  model and management questions, 9 December 2019</a>
+<a href="https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_final_2col.html" target="_blank">Interactive conceptual  model and management questions, presented 9 December 2019; revised 29 June 2020</a>
 
 
 ### Test Visualizations archive (warning: info may be out of date)
