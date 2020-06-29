@@ -5,7 +5,7 @@ output: html_document
 
 ## Visualization for Ecosystem and Ocean Planning Committee, November 2019
 
-Updated June 29, 2020 to correct a missig link to "Other species distributional shifts"
+Updated June 29, 2020 to correct a missing link to "Other species distributional shifts"
 
 ## Minor edits for Council, December 2019
 
